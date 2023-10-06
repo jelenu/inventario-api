@@ -3,7 +3,9 @@ from django.urls import path
 from rest_framework.authtoken.views import obtain_auth_token
 
 from users.views import UserDetailView, UserListView
-from products.views import CategoriaDetailView, CategoriaListView, ProveedorDetailView, ProveedorListView, ClienteDetailView, ClienteListView
+from products.views import (CategoriaDetailView, CategoriaListView, ProveedorDetailView, ProveedorListView,
+                            ClienteDetailView, ClienteListView, ProductoDetailView, ProductoListView,
+                            TransaccionEntradaListView, TransaccionEntradaDestroyView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -21,6 +23,17 @@ urlpatterns = [
 
     path('customers/', ClienteListView.as_view(), name='customer-list'),
     path('customers/<int:pk>/', ClienteDetailView.as_view(), name='customer-detail'),
+
+    path('products/', ProductoListView.as_view(), name='product-list'),
+    path('products/<int:pk>/', ProductoDetailView.as_view(), name='product-detail'),
+
+    path('input-transactions/', TransaccionEntradaListView.as_view(), name='input-transaction-list'),
+    path('input-transactions/<int:pk>/', TransaccionEntradaDestroyView.as_view(), name='input-transaction-detail'),
+    
+    path('output-transactions/', TransaccionEntradaListView.as_view(), name='output-transaction-list'),
+    path('output-transactions/<int:pk>/', TransaccionEntradaDestroyView.as_view(), name='output-transaction-detail'),
+
+
 
 
 ]

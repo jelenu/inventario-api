@@ -14,7 +14,7 @@ class Producto(models.Model):
     descripcion = models.TextField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     sku = models.CharField(max_length=255, unique=True)
-    cantidad_en_stock = models.IntegerField()
+    cantidad_en_stock = models.IntegerField(default=0)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
 
     def __str__(self):

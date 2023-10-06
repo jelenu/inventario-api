@@ -1,8 +1,11 @@
 from rest_framework import generics, permissions
-from .models import Categoria, Proveedor, Cliente
+from .models import Categoria, Proveedor, Cliente, Producto, TransaccionEntrada, TransaccionSalida
 from .serializers import (  CategoriaSerializer, CategoriaCreateSerializer, CategoriaUpdateSerializer,
                             ProveedorCreateSerializer, ProveedorSerializer, ProveedorUpdateSerializer,
-                            ClienteCreateSerializer, ClienteSerializer, ClienteUpdateSerializer)
+                            ClienteCreateSerializer, ClienteSerializer, ClienteUpdateSerializer,
+                            ProductoCreateSerializer, ProductoSerializer, ProductoUpdateSerializer,
+                            TransaccionEntradaCreateSerializer, TransaccionEntradaSerializer, TransaccionEntradaDestroySerialzier,
+                            TransaccionSalidaCreateSerializer, TransaccionSalidaDestroySerialzier, TransaccionSalidaSerializer)
 
 
 ##########Categorias##########
@@ -54,4 +57,55 @@ class ClienteListView(generics.ListCreateAPIView):
 class ClienteDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Cliente.objects.all()
     serializer_class = ClienteUpdateSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+
+##########Productos##########
+class ProductoListView(generics.ListCreateAPIView):
+    queryset = Producto.objects.all()
+    serializer_class = ProductoSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return ProductoCreateSerializer
+        return ProductoSerializer
+
+class ProductoDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Producto.objects.all()
+    serializer_class = ProductoUpdateSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+
+##########Transaccion Entrada##########
+class TransaccionEntradaListView(generics.ListCreateAPIView):
+    queryset = TransaccionEntrada.objects.all()
+    serializer_class = TransaccionEntradaSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return TransaccionEntradaCreateSerializer
+        return TransaccionEntradaSerializer
+
+class TransaccionEntradaDestroyView(generics.DestroyAPIView):
+    queryset = TransaccionEntrada.objects.all()
+    serializer_class = TransaccionEntradaDestroySerialzier
+    permission_classes = [permissions.IsAdminUser]
+
+
+##########Transaccion Salida##########
+class TransaccionSalidaListView(generics.ListCreateAPIView):
+    queryset = TransaccionSalida.objects.all()
+    serializer_class = TransaccionSalidaSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return TransaccionSalidaCreateSerializer
+        return TransaccionSalidaSerializer
+
+class TransaccionSalidaDestroyView(generics.DestroyAPIView):
+    queryset = TransaccionSalida.objects.all()
+    serializer_class = TransaccionSalidaDestroySerialzier
     permission_classes = [permissions.IsAdminUser]
