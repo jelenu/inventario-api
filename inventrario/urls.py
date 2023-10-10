@@ -5,7 +5,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 from users.views import UserDetailView, UserListView
 from products.views import (CategoriaDetailView, CategoriaListView, ProveedorDetailView, ProveedorListView,
                             ClienteDetailView, ClienteListView, ProductoDetailView, ProductoListView,
-                            TransaccionEntradaListView, TransaccionEntradaDestroyView)
+                            TransaccionEntradaListView, TransaccionEntradaDestroyView, TransaccionSalidaDestroyView, TransaccionSalidaListView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,8 +30,8 @@ urlpatterns = [
     path('input-transactions/', TransaccionEntradaListView.as_view(), name='input-transaction-list'),
     path('input-transactions/<int:pk>/', TransaccionEntradaDestroyView.as_view(), name='input-transaction-detail'),
     
-    path('output-transactions/', TransaccionEntradaListView.as_view(), name='output-transaction-list'),
-    path('output-transactions/<int:pk>/', TransaccionEntradaDestroyView.as_view(), name='output-transaction-detail'),
+    path('output-transactions/', TransaccionSalidaListView.as_view(), name='output-transaction-list'),
+    path('output-transactions/<int:pk>/', TransaccionSalidaDestroyView.as_view(), name='output-transaction-detail'),
 
 
 

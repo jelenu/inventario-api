@@ -118,7 +118,7 @@ class TransaccionEntradaCreateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("La cantidad no puede ser negativa.")
 
         # Actualizar la cantidad_en_stock del producto
-        producto.cantidad_en_stock -= cantidad
+        producto.cantidad_en_stock += cantidad
         producto.save()
 
         # Agregar la fecha actual
@@ -143,7 +143,7 @@ class TransaccionSalidaSerializer(serializers.ModelSerializer):
 class TransaccionSalidaCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = TransaccionSalida
-        fields = ('producto', 'cantidad', 'proveedor')
+        fields = ('producto', 'cantidad', 'cliente')
 
     def create(self, validated_data):
         producto = validated_data['producto']
@@ -154,7 +154,7 @@ class TransaccionSalidaCreateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("La cantidad no puede ser negativa.")
 
         # Actualizar la cantidad_en_stock del producto
-        producto.cantidad_en_stock += cantidad
+        producto.cantidad_en_stock -= cantidad
         producto.save()
 
         # Agregar la fecha actual
